@@ -1,10 +1,10 @@
 {
-  "name": "waves-api",
+  "name": "KIA-api",
   "version": "0.21.5",
-  "description": "Waves client-side API library",
+  "description": "kia client-side API library",
   "keywords": [
     "cryptocurrency",
-    "waves",
+    "KIA",
     "api",
     "seed",
     "transactions",
@@ -12,17 +12,17 @@
     "signature"
   ],
   "author": {
-    "name": "Phil Filippak",
-    "email": "xenohunter@yandex.ru",
-    "url": "https://github.com/xenohunter"
+    "name": "Ph00",
+    "email": "kiacoinceo@gmail.com",
+    "url": "https://github.com/kiacoin"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/xenohunter/waves-api.git"
+    "url": "https://github.com/kiacoin/kia-api.git"
   },
-  "main": "dist/waves-api.min.js",
-  "types": "raw/WavesAPI.d.ts",
+  "main": "dist/KIA-api.min.js",
+  "types": "raw/KIAAPI.d.ts",
   "devDependencies": {
     "@types/chai": "^4.0.4",
     "@types/mocha": "^2.2.43",
@@ -49,11 +49,11 @@
     "ts-utils": "^5.3.0"
   },
   "scripts": {
-    "_build-partial": "node_modules/.bin/browserify raw/src/WavesAPI.js --im -s WavesAPI -u bignumber.js -u crypto -u node-fetch -u ts-utils -u ts-api-validator > ./dist/waves-api.partial.js",
-    "_build-full": "node_modules/.bin/browserify raw/src/WavesAPI.js --im -s WavesAPI -u crypto -u node-fetch > ./dist/waves-api.js",
+    "_build-partial": "node_modules/.bin/browserify raw/src/KIAAPI.js --im -s KIAAPI -u bignumber.js -u crypto -u node-fetch -u ts-utils -u ts-api-validator > ./dist/KIA-api.partial.js",
+    "_build-full": "node_modules/.bin/browserify raw/src/KIAAPI.js --im -s WavesAPI -u crypto -u node-fetch > ./dist/KIA-api.js",
     "build": "npm run compile && mkdir -p dist && npm run _build-partial && npm run _build-full && npm run uglifyjs",
     "compile": "mkdir -p raw && ./node_modules/.bin/tsc -p ./tsconfig.json --declaration --outDir raw",
-    "uglifyjs": "node_modules/.bin/uglifyjs ./dist/waves-api.js -o ./dist/waves-api.min.js && node_modules/.bin/uglifyjs ./dist/waves-api.partial.js -o ./dist/waves-api.partial.min.js",
+    "uglifyjs": "node_modules/.bin/uglifyjs ./dist/KIA-api.js -o ./dist/KIA-api.min.js && node_modules/.bin/uglifyjs ./dist/KIA-api.partial.js -o ./dist/KIA-api.partial.min.js",
     "prepublishOnly": "npm run build && npm run test && npm run test-browser",
     "test": "npm run build && ./node_modules/.bin/tsc -p ./test/tsconfig.json && ./node_modules/.bin/mocha $(find ./tmp-node/test -name '*.spec.js')",
     "test-browser": "npm run build && ./node_modules/.bin/tsc -p ./test/tsconfig.browser.json && ./node_modules/.bin/karma start karma.conf.js"
