@@ -1,33 +1,29 @@
-# Waves API [![npm version](https://badge.fury.io/js/waves-api.svg)](https://www.npmjs.com/package/waves-api) [![downloads/month](https://img.shields.io/npm/dm/waves-api.svg)](https://www.npmjs.com/package/waves-api)
 
-Waves Platform core features and Waves API library for both Node.js and browser.
-
-The latest and most actual version of this documentation [is hosted on GitHub](https://github.com/xenohunter/waves-api/blob/master/README.md).
 
 ## Installation
 
 ```
-npm install waves-api --save
+npm install KIA-api --save
 ```
 
 In Node.js:
 
 ```
-const WavesAPI = require('waves-api');
+const KIAAPI = require('KIA-api');
 ```
 
 In browser:
 
 ```
-<script src="./node_modules/waves-api/dist/waves-api.min.js"></script>
+<script src="./node_modules/KIA-api/dist/KIA-api.min.js"></script>
 ```
 
-You can use `waves-api` even within Web Workers.
+You can use `KIA-api` even within Web Workers.
 
 ## Usage
 
 ```
-const Waves = WavesAPI.create(WavesAPI.TESTNET_CONFIG);
+const KIA = KIAAPI.create(KIAAPI.TESTNET_CONFIG);
 ```
 
 ### Seed
@@ -35,7 +31,7 @@ const Waves = WavesAPI.create(WavesAPI.TESTNET_CONFIG);
 You can create a new random seed:
 
 ```
-const seed = Waves.Seed.create();
+const seed = KIA.Seed.create();
 
 console.log(seed.phrase); // 'hole law front bottom then mobile fabric under horse drink other member work twenty boss'
 console.log(seed.address); // '3Mr5af3Y7r7gQej3tRtugYbKaPr5qYps2ei'
@@ -54,17 +50,17 @@ console.log(encrypted); // 'U2FsdGVkX1+5TpaxcK/eJyjht7bSpjLYlSU8gVXNapU3MG8xgWm3
 And decrypted (with the same password, of course):
 
 ```
-const restoredPhrase = Waves.Seed.decryptSeedPhrase(encrypted, password);
+const restoredPhrase = KIA.Seed.decryptSeedPhrase(encrypted, password);
 
 console.log(restoredPhrase); // 'hole law front bottom then mobile fabric under horse drink other member work twenty boss'
 ```
 
-Being called with a wrong password `Waves.Seed.decryptSeedPhrase()` throws an exception.
+Being called with a wrong password `KIA.Seed.decryptSeedPhrase()` throws an exception.
 
 You also can create a `Seed` object from an existing seed:
 
 ```
-const anotherSeed = Waves.Seed.fromExistingPhrase('a seed which was backed up some time ago');
+const anotherSeed = KIA.Seed.fromExistingPhrase('a seed which was backed up some time ago');
 
 console.log(seed.phrase); // 'a seed which was backed up some time ago'
 console.log(seed.address); // '3N3dy1P8Dccup5WnYsrC6VmaGHF6wMxdLn4'
@@ -73,14 +69,14 @@ console.log(seed.keyPair); // { privateKey: '2gSboTPsiQfi1i3zNtFppVJVgjoCA9P4HE9
 
 ### Node API
 
-Right now only the first version of Node API is available. If you want to contribute to the new versions of Waves API please see [the section below](#see-also).
+Right now only the first version of Node API is available. If you want to contribute to the new versions of KIA API please see [the section below](#see-also).
 
 #### Sending transactions
 
 You will need a pair of keys from an account with a balance to send transactions:
 
 ```
-const seed = Waves.Seed.fromExistingPhrase('a seed from an account with some funds');
+const seed = KIA.Seed.fromExistingPhrase('a seed from an account with some funds');
 ```
 
 ##### Issue transaction
@@ -103,7 +99,7 @@ const issueData = {
 
 };
 
-Waves.API.Node.v1.assets.issue(issueData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.assets.issue(issueData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -116,14 +112,14 @@ const transferData = {
     // An arbitrary address; mine, in this example
     recipient: '3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8',
 
-    // ID of a token, or WAVES
-    assetId: 'WAVES',
+    // ID of a token, or KIA
+    assetId: 'KIA',
     
     // The real amount is the given number divided by 10^(precision of the token)
     amount: 10000000,
 
     // The same rules for these two fields
-    feeAssetId: 'WAVES',
+    feeAssetId: 'KIA',
     fee: 100000,
 
     // 140 bytes of data (it's allowed to use Uint8Array here) 
@@ -133,7 +129,7 @@ const transferData = {
 
 };
 
-Waves.API.Node.v1.assets.transfer(transferData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.assets.transfer(transferData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -155,7 +151,7 @@ const reissueData = {
 
 };
 
-Waves.API.Node.v1.assets.reissue(reissueData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.assets.reissue(reissueData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -174,7 +170,7 @@ const burnData = {
 
 };
 
-Waves.API.Node.v1.assets.burn(burnData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.assets.burn(burnData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -186,15 +182,15 @@ const leaseData = {
 
     recipient: '5xN8XPkKi7RoYUAT5hNKC26FKCcX6Rj6epASpgFEYZss',
 
-    // Both amount and fee may be presented as divided by 10^8 (8 is Waves precision)
-    amount: 1000000000, // 10 Waves
-    fee: 100000, // 0.001 Waves
+    // Both amount and fee may be presented as divided by 10^8 (8 is KIA precision)
+    amount: 1000000000, // 10 KIA
+    fee: 100000, // 0.001 KIA
 
     timestamp: Date.now()
 
 };
 
-Waves.API.Node.v1.leasing.lease(leaseData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.leasing.lease(leaseData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -212,7 +208,7 @@ const cancelLeasingData = {
 
 };
 
-Waves.API.Node.v1.leasing.cancelLeasing(cancelLeasingData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.leasing.cancelLeasing(cancelLeasingData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -223,14 +219,14 @@ Waves.API.Node.v1.leasing.cancelLeasing(cancelLeasingData, seed.keyPair).then((r
 const createAliasData = {
 
     // That's a kind of a nickname you attach to your address
-    alias: 'xenohunter',
+    alias: 'kiacoin',
 
     fee: 100000,
     timestamp: Date.now()
 
 };
 
-Waves.API.Node.v1.aliases.createAlias(createAliasData, seed.keyPair).then((responseData) => {
+KIA.API.Node.v1.aliases.createAlias(createAliasData, seed.keyPair).then((responseData) => {
     console.log(responseData);
 });
 ```
@@ -239,14 +235,14 @@ Waves.API.Node.v1.aliases.createAlias(createAliasData, seed.keyPair).then((respo
 
 The most used GET requests are those related to balances and transactions history.
 
-##### Waves balance
+##### KIA balance
 
-There are two types of Waves balance: simple, with optional `confirmations` parameter, and detailed, showing different types of Waves balance.
+There are two types of KIA balance: simple, with optional `confirmations` parameter, and detailed, showing different types of KIA balance.
 
 With the first type, without additional arguments, you get the current balance on an address:
 
 ```
-Waves.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((balance) => {
+KIA.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((balance) => {
     console.log(balance);
 });
 ```
@@ -254,7 +250,7 @@ Waves.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then(
 If you pass an optional `confirmations` argument, you get the balance with N confirmations, i.e. the balance as it was N blocks ago from the moment:
 
 ```
-Waves.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8', 100).then((balance) => {
+KIA.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8', 100).then((balance) => {
     console.log(balance);
 });
 ```
@@ -262,7 +258,7 @@ Waves.API.Node.v1.addresses.balance('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8', 100).
 For the second type, there is a separate method:
 
 ```
-Waves.API.Node.v1.addresses.balanceDetails('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((balanceDetails) => {
+KIA.API.Node.v1.addresses.balanceDetails('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((balanceDetails) => {
    console.log(balanceDetails);
 });
 ```
@@ -272,7 +268,7 @@ Waves.API.Node.v1.addresses.balanceDetails('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8'
 You can get the list of all balances on an address:
 
 ```
-Waves.API.Node.v1.assets.balances(address).then((balancesList) => {
+KIA.API.Node.v1.assets.balances(address).then((balancesList) => {
    console.log(balancesList);
 });
 ```
@@ -280,7 +276,7 @@ Waves.API.Node.v1.assets.balances(address).then((balancesList) => {
 You also can get the balance of a given token:
 
 ```
-Waves.API.Node.v1.assets.balance(address, assetId).then((balance) => {
+KIA.API.Node.v1.assets.balance(address, assetId).then((balance) => {
    console.log(balance);
 });
 ```
@@ -290,7 +286,7 @@ Waves.API.Node.v1.assets.balance(address, assetId).then((balance) => {
 A very useful method allowing you to get a map with balances of all addresses in possession of a token:
 
 ```
-Waves.API.Node.v1.assets.distribution(assetId).then((distributionMap) => {
+KIA.API.Node.v1.assets.distribution(assetId).then((distributionMap) => {
    console.log(distributionMap);
 });
 ```
@@ -300,7 +296,7 @@ Waves.API.Node.v1.assets.distribution(assetId).then((distributionMap) => {
 Every transaction in the blockchain has its own ID. You can both get one by ID, or get a list of all recent transactions.
 
 ```
-Waves.API.Node.v1.transactions.get('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8RALt').then((tx) => {
+KIA.API.Node.v1.transactions.get('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8RALt').then((tx) => {
     console.log(tx);
 });
 ```
@@ -308,7 +304,7 @@ Waves.API.Node.v1.transactions.get('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8RALt
 To get the list you need to provide an address which is either the sender or the recipient of the transactions in the resulting list:
 
 ```
-Waves.API.Node.v1.transactions.getList('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((txList) => {
+KIA.API.Node.v1.transactions.getList('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((txList) => {
     console.log(txList);
 }):
 ```
@@ -318,11 +314,11 @@ One of the concepts in most blockchains is UTX, unconfirmed transactions pool. D
 There are methods to get the size of UTX pool and UTX pool itself (note that the address is not needed here):
 
 ```
-Waves.API.Node.v1.transactions.utxSize().then((utxSize) => {
+KIA.API.Node.v1.transactions.utxSize().then((utxSize) => {
     console.log(utxSize);
 });
 
-Waves.API.Node.v1.transactions.utxGetList().then((utxList) => {
+KIA.API.Node.v1.transactions.utxGetList().then((utxList) => {
     console.log(utxList);
 });
 ```
@@ -330,7 +326,7 @@ Waves.API.Node.v1.transactions.utxGetList().then((utxList) => {
 Also if a transaction is still in UTX pool and you know its ID, you can get only it from UTX:
 
 ```
-Waves.API.Node.v1.transactions.utxGet('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8RALt').then((tx) => {
+KIA.API.Node.v1.transactions.utxGet('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8RALt').then((tx) => {
     console.log(tx);
 });
 ```
@@ -340,29 +336,29 @@ Waves.API.Node.v1.transactions.utxGet('Bn2opYvcmYAMCaJHKP1uXYCHFGnAyrzGoiboBLT8R
 Aside from creating an alias, you also can get the list of aliases bound to an address, or get the address related to the given alias.
 
 ```
-Waves.API.Node.v1.aliases.byAddress('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((aliasesList) => {
+KIA.API.Node.v1.aliases.byAddress('3PMgh8ra7v9USWUJxUCxKQKr6PM3MgqNVR8').then((aliasesList) => {
     console.log(aliasesList);
 });
 
-Waves.API.Node.v1.aliases.byAlias('xenohunter').then((address) => {
+KIA.API.Node.v1.aliases.byAlias('kiacoin').then((address) => {
     console.log(address);
 });
 ```
 
 ##### Blocks
 
-Everything is simple here. You can get the whole block by its signature (`get()`) or height (`at()`). Method `height()` returns the current height of the Waves blockchain. The names of the remaining methods speak for themselves.
+Everything is simple here. You can get the whole block by its signature (`get()`) or height (`at()`). Method `height()` returns the current height of the KIA blockchain. The names of the remaining methods speak for themselves.
 
 ```
-Waves.API.Node.v1.blocks.get(signature).then((block) => console.log(block));
+KIA.API.Node.v1.blocks.get(signature).then((block) => console.log(block));
 
-Waves.API.Node.v1.blocks.at(height).then((block) => console.log(block));
+KIA.API.Node.v1.blocks.at(height).then((block) => console.log(block));
 
-Waves.API.Node.v1.blocks.height().then((currentHeight) => console.log(currentHeight));
+KIA.API.Node.v1.blocks.height().then((currentHeight) => console.log(currentHeight));
 
-Waves.API.Node.v1.blocks.first().then((firstBlock) => console.log(firstBlock));
+KIA.API.Node.v1.blocks.first().then((firstBlock) => console.log(firstBlock));
 
-Waves.API.Node.v1.blocks.last().then((lastBlock) => console.log(lastBlock));
+KIA.API.Node.v1.blocks.last().then((lastBlock) => console.log(lastBlock));
 ```
 
 ### Configuration
@@ -373,7 +369,7 @@ The configuration is changeable even during the runtime. The structure of the co
 const newConfig = {
 
     // The byte allowing to distinguish networks (mainnet, testnet, devnet, etc)
-    networkByte: Waves.constants.MAINNET_BYTE,
+    networkByte: KIA.constants.MAINNET_BYTE,
 
     // Node and Matcher addresses, no comments here
     nodeAddress: 'https://nodes.wavesnodes.com',
@@ -390,7 +386,7 @@ All fields are optional, only filled ones will be replaced.
 You can change the config like that:
 
 ```
-Waves.config.set(newConfig);
+KIA.config.set(newConfig);
 ```
 
 ### Tools
@@ -398,7 +394,7 @@ Waves.config.set(newConfig);
 #### Get address from public key
 
 ```
-const address = Waves.tools.getAddressFromPublicKey('GL6Cbk3JnD9XiBRK5ntCavSrGGD5JT9pXSRkukcEcaSW');
+const address = KIA.tools.getAddressFromPublicKey('GL6Cbk3JnD9XiBRK5ntCavSrGGD5JT9pXSRkukcEcaSW');
 console.log(address); // '3N1JKsPcQ5x49utR79Maey4tbjssfrn2RYp'
 ```
 
@@ -406,7 +402,7 @@ console.log(address); // '3N1JKsPcQ5x49utR79Maey4tbjssfrn2RYp'
 
 ### Precision and coins-to-tokens transformation
 
-In Waves blockchain different tokens have different precision, i.e. number of decimal digits. For example, it would be 10.00 USD and 10.00000000 BTC. That distinction allows to create tokens for various purposes but also makes things harder to understand sometimes.
+In KIA blockchain different tokens have different precision, i.e. number of decimal digits. For example, it would be 10.00 USD and 10.00000000 BTC. That distinction allows to create tokens for various purposes but also makes things harder to understand sometimes.
 
 Two words have emerged: _token_ and _coin_. Token is used to refer to the whole part of the amount. Coin describes the smallest value which is possible for a given token. For USD _token_ would be one dollar, and _coin_ would be one cent. If you are familiar with Bitcoin you could have encountered the word _Satoshi_ which refers to one hundred millionth of a single Bitcoin.
 
@@ -414,19 +410,19 @@ In the blockchain every token is stored with its explicitly specified precision 
 
 The same goes for the fees, and issue transactions, and leasing amounts, and so on.
 
-Waves precision equals 8. Therefore there are `100000000 * 10^8` of Waves coins (Wavelets) in Waves blockchain.
+KIA precision equals 8. Therefore there are `100000000 * 10^8` of KIA coins (Wavelets) in KIA blockchain.
 
 ### Reissuability and the additive nature of it
 
 The amount in reissue transactions refer not to the final amount of asset after reissuing but to the amount which will be added to the current token amount.
 
-### Waves ID in the library and in the blockchain
+### KIA ID in the library and in the blockchain
 
-One of the trickiest things about Waves blockchain is that Waves ID equals empty string. In the first version on Node API it also equals to empty string. That is an unobvious and potentially dangerous behavior. Therefore in this library Waves ID strictly equals string `WAVES`. Please mind that fact.
+One of the trickiest things about KIA blockchain is that KIA ID equals empty string. In the first version on Node API it also equals to empty string. That is an unobvious and potentially dangerous behavior. Therefore in this library KIA ID strictly equals string `KIA`. Please mind that fact.
 
 ### Fee asset choice for transfer transactions
 
-There is only one type of transactions (currently) in which we can use arbitrary tokens as fees. The only limitation is that the Node to which you connect must support the token you use as fees. Please note that transactions with the Waves fee will be prior over transactions with fees in other tokens.
+There is only one type of transactions (currently) in which we can use arbitrary tokens as fees. The only limitation is that the Node to which you connect must support the token you use as fees. Please note that transactions with the KIA fee will be prior over transactions with fees in other tokens.
 
 ### Impossibility of transactions with the absolutely same data
 
@@ -434,19 +430,19 @@ Transaction IDs are built from all the data in a transaction except the signatur
 
 ### Delays in the leasing process
 
-For the security reasons all leased Waves take effect only after 1000 blocks. Don't worry when your generating balance isn't updated right away.
+For the security reasons all leased KIA take effect only after 1000 blocks. Don't worry when your generating balance isn't updated right away.
 
 ### Mess with balances in the first version of API
 
-It happened so that Waves balance and token balances are served through different API methods in the first version of Waves API. That's not very useful and we designed the new version otherwise.
+It happened so that KIA balance and token balances are served through different API methods in the first version of KIA API. That's not very useful and we designed the new version otherwise.
 
-### Different types of Waves balance
+### Different types of KIA balance
 
-There is the most understandable type of Waves balance. It is the regular balance. It is served through `Waves.API.Node.v1.addresses.balance()`. There are also several types of Waves balance related to leasing and the delays in its processing.
+There is the most understandable type of KIA balance. It is the regular balance. It is served through `KIA.API.Node.v1.addresses.balance()`. There are also several types of KIA balance related to leasing and the delays in its processing.
 
-1. *Regular* — that's how much Waves you have, including those you leased;
-2. *Available* — the same as _regular_ only without Waves you leased;
-3. *Effective* — _available_ plus those Waves which is leased to you;
+1. *Regular* — that's how much KIA you have, including those you leased;
+2. *Available* — the same as _regular_ only without KIA you leased;
+3. *Effective* — _available_ plus those KIA which is leased to you;
 4. *Generating* — the minimal _effective_ for last 1000 blocks;
 5. *Leased* — the amount you leased to other addresses.
 
@@ -457,13 +453,13 @@ Generating balance gives you mining power.
 ## Tests
 
 ```
-cd ./node_modules/waves-api/
+cd ./node_modules/KIA-api/
 npm install
 npm run test # to run tests in Node.js
 npm run test-browser # to run test in Chrome browser
 ```
 
-Test configuration may be changed in the _./node_modules/waves-api/karma.conf.js_ file.
+Test configuration may be changed in the _./node_modules/KIA-api/karma.conf.js_ file.
 
 ## Tools
 
@@ -473,10 +469,10 @@ Test configuration may be changed in the _./node_modules/waves-api/karma.conf.js
 
 ## Authors
 
-* [**Phil Filippak**](https://github.com/xenohunter) - *Initial work*
+* [**Phil Filippak**](https://github.com/kiacoin) - *Initial work*
 * [**Daniil Tsigelnitskiy**](https://github.com/tsigel) - *TypeScript expertise*
 
-See also the list of [contributors](https://github.com/xenohunter/waves-api/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/kiacoin/KIA-api/contributors) who participated in this project.
 
 ## License
 
@@ -484,4 +480,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## See also
 
-* [Waves API design repository](https://github.com/wavesplatform/swagger-api-design)
+* [KIA API design repository](https://github.com/wavesplatform/swagger-api-design)
