@@ -50,7 +50,7 @@
   },
   "scripts": {
     "_build-partial": "node_modules/.bin/browserify raw/src/KIAAPI.js --im -s KIAAPI -u bignumber.js -u crypto -u node-fetch -u ts-utils -u ts-api-validator > ./dist/KIA-api.partial.js",
-    "_build-full": "node_modules/.bin/browserify raw/src/KIAAPI.js --im -s WavesAPI -u crypto -u node-fetch > ./dist/KIA-api.js",
+    "_build-full": "node_modules/.bin/browserify raw/src/KIAAPI.js --im -s KIAAPI -u crypto -u node-fetch > ./dist/KIA-api.js",
     "build": "npm run compile && mkdir -p dist && npm run _build-partial && npm run _build-full && npm run uglifyjs",
     "compile": "mkdir -p raw && ./node_modules/.bin/tsc -p ./tsconfig.json --declaration --outDir raw",
     "uglifyjs": "node_modules/.bin/uglifyjs ./dist/KIA-api.js -o ./dist/KIA-api.min.js && node_modules/.bin/uglifyjs ./dist/KIA-api.partial.js -o ./dist/KIA-api.partial.min.js",
